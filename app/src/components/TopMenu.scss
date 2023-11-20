@@ -1,0 +1,24 @@
+.top-menu-container {
+  padding: 30px;
+  display: flex;
+  align-items: center;
+
+  > div {
+    margin-right: 15px;
+  }
+
+  :last-child {
+    margin: 0;
+  }
+
+  .top-menu-icon {
+    background-color: #222222;
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.top-menu-container {
+  background-color: #eeeeee;
+}
