@@ -1,0 +1,23 @@
+@import "../assets/sass/variables.scss";
+@import "../assets/sass/animations.scss";
+
+.select-container {
+  background-color: $color-black;
+  padding-right: $spacing-5;
+  border-radius: $spacing-15;
+
+  select {
+    background-color: $color-black;
+    color: $color-gray;
+    font-weight: 700;
+    padding: 0 $spacing-15;
+    border-radius: $spacing-15;
+    border: 0;
+    height: $spacing-30;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-gray-hover;
+    }
+  }
+}
