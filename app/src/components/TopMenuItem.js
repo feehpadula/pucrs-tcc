@@ -6,7 +6,7 @@ function TopMenuItem({ routes }) {
       <ul>
         {routes.map((route, index) => (
           <li key={index} className="top-menu-item">
-            <a href={route.route}>{route.name}</a>
+            <a href={route.path}>{route.label}</a>
           </li>
         ))}
       </ul>
