@@ -1,0 +1,14 @@
+@import "../assets/sass/spacing.scss";
+
+.item-data-view {
+  display: flex;
+  align-items: center;
+
+  > * {
+    margin-left: $spacing-15;
+  }
+}
+
+.item-actions > * {
+  margin-left: $spacing-15;
+}
