@@ -1,10 +1,13 @@
 import "./Search.scss";
 
-function Search() {
+function Search({ className, placeholder }) {
   return (
-    <div className="top-menu-search">
-      <input type="text" id="search" className="search" />
-    </div>
+    <input
+      type="text"
+      id="search"
+      className={`search ${className}`}
+      placeholder={placeholder}
+    />
   );
 }
 
