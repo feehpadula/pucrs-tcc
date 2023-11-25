@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "../services/api";
+import axios from "../services/Api";
 
 export const useApi = (params) => {
   const [data, setData] = useState(null);
