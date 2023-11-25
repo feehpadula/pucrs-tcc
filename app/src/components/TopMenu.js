@@ -1,4 +1,4 @@
-import { mapRoutes } from "../utils/utils";
+import { mapRoutes } from "../utils/Utils";
 import TopMenuItem from "./TopMenuItem";
 import Search from "./Search";
 import Profile from "./Profile";
