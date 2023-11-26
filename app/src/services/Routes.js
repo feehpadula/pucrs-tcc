@@ -25,7 +25,7 @@ export default createBrowserRouter([
   {
     path: "/create",
     element: <Create />,
-    label: "Create",
+    label: "Criar",
     position: "TopMenu",
   },
 
