@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "../components/Card";
+import Contribute from "../components/Contribute";
 import HorizontalList from "../components/HorizontalList";
 import VerticalList from "../components/VerticalList";
 import Button from "../components/Button";
@@ -14,6 +15,21 @@ import { Plus, Share, Report } from "../assets/svg/icons";
 import "./Data.scss";
 
 function Data() {
+  const countries = [
+    {
+      value: "brasil",
+      label: "Brasil",
+    },
+    {
+      value: "canada",
+      label: "Canada",
+    },
+    {
+      value: "estadosunidos",
+      label: "Estados Unidos",
+    },
+  ];
+
   /* eslint-disable */
   const {
     data: topics,
@@ -87,8 +103,7 @@ function Data() {
             <Col sm={12}>
               <HorizontalList>
                 <div className="item-data-view">
-                  <span>Local</span>
-                  <Select></Select>
+                  <Select label="Local" id="country" name="country" data={countries} />
                 </div>
                 <div className="item-actions">
                   <Button title="Contribuir" icon={<Plus />}></Button>
@@ -98,7 +113,9 @@ function Data() {
               </HorizontalList>
             </Col>
             <Col sm={12} className="pt-30">
-              <Card title="Contribuir"></Card>
+              <Card title="Contribuir">
+                <Contribute />
+              </Card>
             </Col>
             <Col sm={12} className="pt-30">
               <Card title={item && item[0].name}>
