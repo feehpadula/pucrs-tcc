@@ -1,4 +1,4 @@
-import { useApi } from "../hooks/useApi";
+import { useGet } from "../hooks/useGet";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -11,7 +11,7 @@ function Home() {
     data: topics,
     isLoading: topicsIsLoading,
     error: topicsError,
-  } = useApi({
+  } = useGet({
     method: "get",
     url: "/topics",
   });
@@ -22,7 +22,7 @@ function Home() {
     data: latest,
     isLoading: latestIsLoading,
     error: latestError,
-  } = useApi({
+  } = useGet({
     method: "get",
     url: "/items/latest",
   });
