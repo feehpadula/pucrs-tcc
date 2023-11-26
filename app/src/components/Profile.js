@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Dropdown from "./Dropdown";
+import MenuDropdown from "./MenuDropdown";
 import "./Profile.scss";
 
 function Profile({ routes }) {
@@ -21,7 +21,7 @@ function Profile({ routes }) {
         onClick={profileMenuHandleClick}
         style={{ pointerEvents: open && "none" }}
       ></span>
-      {open && <Dropdown parentCallback={profileMenuHandleBlur} routes={routes} />}
+      {open && <MenuDropdown parentCallback={profileMenuHandleBlur} routes={routes} />}
     </div>
   );
 }

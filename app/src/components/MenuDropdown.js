@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import style from "./Dropdown.module.scss";
+import style from "./MenuDropdown.module.scss";
 
-const Dropdown = ({ parentCallback, routes }) => {
+const MenuDropdown = ({ parentCallback, routes }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -23,4 +23,4 @@ const Dropdown = ({ parentCallback, routes }) => {
   );
 };
 
-export default Dropdown;
+export default MenuDropdown;
