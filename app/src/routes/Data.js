@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { useApi } from "../hooks/useApi";
+import { useGet } from "../hooks/useGet";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -35,7 +35,7 @@ function Data() {
     data: topics,
     isLoading: topicsIsLoading,
     error: topicsError,
-  } = useApi({
+  } = useGet({
     method: "get",
     url: "/topics",
   });
@@ -48,7 +48,7 @@ function Data() {
     data: item,
     isLoading: itemIsLoading,
     error: itemError,
-  } = useApi({
+  } = useGet({
     method: "get",
     url: `/items/${params.id}`,
   });
@@ -59,7 +59,7 @@ function Data() {
     data: relatedItems,
     isLoading: relatedItemsIsLoading,
     error: relatedItemsError,
-  } = useApi({
+  } = useGet({
     method: "get",
     url: `/topics/${params.tid}/${params.id}/r`,
   });
@@ -70,7 +70,7 @@ function Data() {
     data: itemData,
     isLoading: itemDataIsLoading,
     error: itemDataError,
-  } = useApi({
+  } = useGet({
     method: "get",
     url: `/data/${params.id}`,
   });
