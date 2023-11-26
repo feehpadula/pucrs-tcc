@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../routes/Home";
 import Topic from "../routes/Topic";
 import Data from "../routes/Data";
+import Create from "../routes/Create";
 
 export default createBrowserRouter([
   {
@@ -20,6 +21,12 @@ export default createBrowserRouter([
     path: "/data/:tid/:id",
     element: <Data />,
     label: "Tópico",
+  },
+  {
+    path: "/create",
+    element: <Create />,
+    label: "Create",
+    position: "TopMenu",
   },
 
   {
