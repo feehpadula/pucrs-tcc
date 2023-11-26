@@ -6,6 +6,15 @@ router.get("/", async function (req, res, next) {
   console.error(`Route not set`);
 });
 
+router.post("/", async function (req, res, next) {
+  try {
+    res.json(await items.addItem(req.body, req.query.page));
+  } catch (err) {
+    console.error(`Error while adding items `, err.message);
+    next(err);
+  }
+});
+
 router.get("/latest", async function (req, res, next) {
   try {
     res.json(await items.getLatestItems(req.query.page));
