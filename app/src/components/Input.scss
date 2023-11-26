@@ -1,0 +1,20 @@
+@import "../assets/sass/variables.scss";
+
+.create-field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-10;
+  font-size: 16px;
+
+  input {
+    background-color: $color-gray;
+    color: $color-black;
+    padding: 0 $spacing-15;
+    border-radius: $spacing-15;
+    border: 0;
+    height: $spacing-30;
+    width: 100%;
+    max-width: 300px;
+    cursor: pointer;
+  }
+}
