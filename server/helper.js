@@ -9,7 +9,12 @@ function emptyOrRows(rows) {
   return rows;
 }
 
+function setString(string) {
+  return string !== null ? `'${string}'` : null;
+}
+
 module.exports = {
   getOffset,
   emptyOrRows,
+  setString,
 };
