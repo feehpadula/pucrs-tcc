@@ -10,7 +10,7 @@ router.post("/", async function (req, res, next) {
   try {
     res.json(await items.addItem(req.body, req.query.page));
   } catch (err) {
-    console.error(`Error while adding items `, err.message);
+    console.error(`Error while adding item `, err.message);
     next(err);
   }
 });
