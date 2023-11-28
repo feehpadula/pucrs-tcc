@@ -39,6 +39,11 @@ async function getItem(itemId) {
       id,
       topicId,
       name,
+      field01name,
+      field02name,
+      dataRelation, 
+      dataPresentation, 
+      dataOutliers,
       (SELECT COUNT(*) FROM data WHERE data.itemsId = items.id) AS contributions
     FROM items
     WHERE items.id=${itemId}`
