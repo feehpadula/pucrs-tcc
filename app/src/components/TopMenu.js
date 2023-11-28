@@ -1,24 +1,22 @@
+import { mapRoutes } from "../utils/Utils";
 import TopMenuItem from "./TopMenuItem";
 import Search from "./Search";
 import Profile from "./Profile";
 import "./TopMenu.scss";
 
-function TopMenu() {
+function TopMenu({ routes }) {
   return (
     <div className="top-menu-container">
       <div className="top-menu-icon">
-        <span></span>
+        <a href="/">
+          <img className="logo" alt="Logotipo What are the odds?" src="/logo@32.png" />
+        </a>
       </div>
-      <TopMenuItem
-        routes={[
-          { name: "AAA", route: "aaa" },
-          { name: "BBB", route: "bbb" },
-          { name: "CCC", route: "ccc" },
-          { name: "DDD", route: "ddd" },
-        ]}
-      />
-      <Search />
-      <Profile />
+      <TopMenuItem routes={mapRoutes(routes, "TopMenu")} />
+      <div className="top-menu-search">
+        <Search placeholder="Pesquisar" />
+      </div>
+      <Profile routes={mapRoutes(routes, "Profile")} />
     </div>
   );
 }

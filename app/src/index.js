@@ -1,21 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
+import Routes from "./services/Routes";
 import TopMenu from "./components/TopMenu";
-import Home from "./routes/Home";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-]);
+import "./index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <TopMenu />
-    <RouterProvider router={router} />
+    <TopMenu routes={Routes.routes} />
+    <RouterProvider router={Routes} />
   </React.StrictMode>
 );

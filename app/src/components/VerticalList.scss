@@ -1,0 +1,7 @@
+@import "../assets/sass/variables.scss";
+
+.vertical-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-15;
+}
