@@ -67,7 +67,7 @@ const Chart = (props) => {
         <Line
           isAnimationActive={false}
           type="monotone"
-          dataKey="total"
+          dataKey="field01data"
           dot={renderLastDot}
           activeDot={renderActiveDot}
         />
