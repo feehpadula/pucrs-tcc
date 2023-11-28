@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams } from "react-router";
 import { useGet } from "../hooks/useGet";
 import Container from "react-bootstrap/Container";
@@ -15,6 +16,8 @@ import { Plus, Share, Report } from "../assets/svg/icons";
 import "./Data.scss";
 
 function Data() {
+  const [showContribute, setShowContribute] = useState(false);
+
   const countries = [
     {
       value: "brasil",
@@ -29,6 +32,14 @@ function Data() {
       label: "Estados Unidos",
     },
   ];
+
+  const handleContribute = () => {
+    setShowContribute(true);
+  };
+
+  const handleCancelContribute = () => {
+    setShowContribute(false);
+  };
 
   /* eslint-disable */
   const {
@@ -106,17 +117,26 @@ function Data() {
                   <Select label="Local" id="country" name="country" data={countries} />
                 </div>
                 <div className="item-actions">
-                  <Button title="Contribuir" icon={<Plus />}></Button>
+                  <Button
+                    title="Contribuir"
+                    icon={<Plus />}
+                    onClick={handleContribute}
+                  ></Button>
                   <Button title="Compartilhar" icon={<Share />}></Button>
                   <Button title="Reportar" icon={<Report />}></Button>
                 </div>
               </HorizontalList>
             </Col>
-            <Col sm={12} className="pt-30">
-              <Card title="Contribuir">
-                <Contribute />
-              </Card>
-            </Col>
+            {showContribute && (
+              <Col sm={12} className="pt-30">
+                <Card title="Contribuir">
+                  <Contribute
+                    item={item && item}
+                    onHandleCancelContribute={handleCancelContribute}
+                  />
+                </Card>
+              </Col>
+            )}
             <Col sm={12} className="pt-30">
               <Card title={item && item[0].name}>
                 {itemData && <Chart itemData={itemData[0]} />}
@@ -124,8 +144,8 @@ function Data() {
                   <Col sm={12} className="pb-15">
                     {item && itemData && (
                       <h3>
-                        {item[0].name} ({itemData[0][itemData.length - 1].date}):{" "}
-                        {itemData[0][itemData.length - 1].total}
+                        {item[0].name} ({itemData[0][itemData[0].length - 1].date}):{" "}
+                        {itemData[0][itemData[0].length - 1].field01data}
                       </h3>
                     )}
                   </Col>
@@ -135,8 +155,8 @@ function Data() {
                         <>
                           <span>Contribuições: {item[0].contributions}</span>
                           <span>
-                            Contribuições ({itemData[0][itemData.length - 1].date}):{" "}
-                            {itemData[0][itemData.length - 1].contributions}
+                            Contribuições ({itemData[0][itemData[0].length - 1].date}):{" "}
+                            {itemData[0][itemData[0].length - 1].contributions}
                           </span>
                         </>
                       )}
@@ -144,8 +164,10 @@ function Data() {
                   </Col>
                   <Col md={6}>
                     <VerticalList>
-                      <span style={{ color: "red" }}>Data 01:</span>
-                      <span style={{ color: "red" }}>Data 02:</span>
+                      <span>Média total: 00000 </span>
+                      {item && item[0].field02name !== null && (
+                        <span>{item && item[0].field02name}:</span>
+                      )}
                     </VerticalList>
                   </Col>
                 </Row>
