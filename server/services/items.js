@@ -44,9 +44,11 @@ async function getItem(itemId) {
       dataRelation, 
       dataPresentation, 
       dataOutliers,
-      (SELECT COUNT(*) FROM data WHERE data.itemsId = items.id) AS contributions
+      COUNT(data.id) AS contributions
     FROM items
-    WHERE items.id = ${itemId}`
+    LEFT JOIN data ON items.id = data.itemsId
+    WHERE items.id = ${itemId}
+    GROUP BY items.id, topicId, name, field01name, field02name, dataRelation, dataPresentation, dataOutliers`
   );
   connection.release();
 
@@ -59,14 +61,16 @@ async function getLatestItems() {
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(
     `SELECT 
-      id, 
-      topicId,
-      name,
-      creationDate,
-      (SELECT COUNT(*) FROM data WHERE data.itemsId = items.id) AS totalContributions,
-      (SELECT DATE_FORMAT(date, '%d/%m/%Y') FROM data WHERE data.itemsId = items.id ORDER BY date DESC LIMIT 1) AS lastUpdate
+      items.id, 
+      items.topicId,
+      items.name,
+      items.creationDate,
+      COUNT(data.id) AS totalContributions,
+      MAX(DATE_FORMAT(data.date, '%d/%m/%Y')) AS lastUpdate
     FROM items
-    ORDER BY creationDate DESC
+    LEFT JOIN data ON items.id = data.itemsId
+    GROUP BY items.id, items.topicId, items.name, items.creationDate
+    ORDER BY items.creationDate DESC
     LIMIT 10`
   );
   connection.release();
@@ -84,12 +88,12 @@ async function getTrendingItems() {
       items.topicId,
       items.name, 
       COUNT(*) AS monthContributions,
-      (SELECT COUNT(*) FROM data WHERE data.itemsId = items.id) AS totalContributions,
-      DATE_FORMAT(MAX(data.date), '%d/%m/%Y') AS lastUpdate
+      COUNT(data.id) AS totalContributions,
+      MAX(DATE_FORMAT(data.date, '%d/%m/%Y')) AS lastUpdate
     FROM items
-      INNER JOIN data ON items.id = data.itemsId
+    INNER JOIN data ON items.id = data.itemsId
     WHERE data.date >= NOW() - INTERVAL 30 DAY
-    GROUP BY items.name
+    GROUP BY items.id, items.topicId, items.name
     ORDER BY monthContributions DESC
     LIMIT 10`
   );
@@ -104,14 +108,16 @@ async function getSearchItems(query, page) {
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(
     `SELECT 
-      id, 
-      topicId,
-      name,
-      creationDate,
-      (SELECT COUNT(*) FROM data WHERE data.itemsId = items.id) AS contributions,
-      (SELECT date FROM data WHERE data.itemsId = items.id ORDER BY date DESC LIMIT 1) AS lastUpdate
+      items.id, 
+      items.topicId,
+      items.name,
+      items.creationDate,
+      COUNT(data.id) AS contributions,
+      MAX(data.date) AS lastUpdate
     FROM items
-    WHERE name LIKE '%${query}%'
+    LEFT JOIN data ON items.id = data.itemsId
+    WHERE items.name LIKE '%${query}%'
+    GROUP BY items.id, items.topicId, items.name, items.creationDate
     ORDER BY lastUpdate DESC
     LIMIT ${page * 10}, 11`
   );

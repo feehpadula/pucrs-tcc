@@ -19,12 +19,14 @@ async function getRandomItems(topicId, itemsId) {
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(
     `SELECT
-      id,
-      name,
-      (SELECT COUNT(*) FROM data WHERE data.itemsId = items.id) AS contributions,
-      (SELECT DATE_FORMAT(date, '%d/%m/%Y') FROM data WHERE data.itemsId = items.id ORDER BY date DESC LIMIT 1) AS lastUpdate
+      items.id,
+      items.name,
+      COUNT(data.id) AS contributions,
+      MAX(DATE_FORMAT(data.date, '%d/%m/%Y')) AS lastUpdate
     FROM items
+    LEFT JOIN data ON items.id = data.itemsId
     WHERE topicId = ${topicId} AND items.id <> ${itemsId}
+    GROUP BY items.id, items.name
     ORDER BY RAND()
     LIMIT 5`
   );
@@ -39,12 +41,14 @@ async function getItems(topicId) {
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(
     `SELECT
-      id,
-      name,
-      (SELECT COUNT(*) FROM data WHERE data.itemsId = items.id) AS contributions,
-      (SELECT DATE_FORMAT(date, '%d/%m/%Y') FROM data WHERE data.itemsId = items.id ORDER BY date DESC LIMIT 1) AS lastUpdate
+      items.id,
+      items.name,
+      COUNT(data.id) AS contributions,
+      MAX(DATE_FORMAT(data.date, '%d/%m/%Y')) AS lastUpdate
     FROM items
+    LEFT JOIN data ON items.id = data.itemsId
     WHERE topicId = ${topicId}
+    GROUP BY items.id, items.name
     LIMIT 10`
   );
   connection.release();
@@ -58,12 +62,14 @@ async function getPageItems(topicId, page) {
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(
     `SELECT
-      id,
-      name,
-      (SELECT COUNT(*) FROM data WHERE data.itemsId = items.id) AS contributions,
-      (SELECT DATE_FORMAT(date, '%d/%m/%Y') FROM data WHERE data.itemsId = items.id ORDER BY date DESC LIMIT 1) AS lastUpdate
+      items.id,
+      items.name,
+      COUNT(data.id) AS contributions,
+      DATE_FORMAT(MAX(data.date), '%d/%m/%Y') AS lastUpdate
     FROM items
+    LEFT JOIN data ON items.id = data.itemsId
     WHERE topicId = ${topicId}
+    GROUP BY items.id, items.name
     ORDER BY lastUpdate DESC
     LIMIT ${page * 10}, 11`
   );
