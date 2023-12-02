@@ -6,9 +6,12 @@ import Col from "react-bootstrap/Col";
 import Card from "../components/Card";
 import HorizontalList from "../components/HorizontalList";
 import Tags from "../components/Tags";
+import Pagination from "../components/Pagination";
 import "./Topic.scss";
 
 function Topic() {
+  let [hasPrevPage, hasNextPage] = [false, false];
+
   /* eslint-disable */
   const {
     data: topics,
@@ -29,9 +32,14 @@ function Topic() {
     error: itemsError,
   } = useGet({
     method: "get",
-    url: `/topics/${params.id}`,
+    url: `/topics/${params.id}/${params.page ? params.page : 0}`,
   });
   /* eslint-disable */
+
+  hasPrevPage = params.page && params.page > 0 ? true : false;
+  hasNextPage = !itemsIsLoading && items.length > 10 ? true : false;
+
+  const mapItems = items && items.slice(0, 10);
 
   return (
     <Container>
@@ -53,28 +61,41 @@ function Topic() {
           </Card>
         </Col>
         <Col xxl={8} xl={8} className="pt-lg-30">
-          <Card
-            title={
-              topics &&
-              topics
-                .filter((topic) => parseInt(topic.id) === parseInt(params.id))
-                .map((topic) => topic.name)
-            }
-          >
-            {items &&
-              items.map((item) => (
-                <HorizontalList key={item.id}>
-                  <a href={`/data/${params.id}/${item.id}`}>{item.name}</a>
-                  <Tags
-                    tags={[
-                      item.contributions,
-                      item.lastUpdate !== null &&
-                        new Date(item.lastUpdate).toLocaleDateString("pt-br"),
-                    ]}
-                  />
-                </HorizontalList>
-              ))}
-          </Card>
+          <Row>
+            <Col>
+              <Card
+                title={
+                  topics &&
+                  topics
+                    .filter((topic) => parseInt(topic.id) === parseInt(params.id))
+                    .map((topic) => topic.name)
+                }
+              >
+                {mapItems &&
+                  mapItems.map((item) => (
+                    <HorizontalList key={item.id}>
+                      <a href={`/data/${params.id}/${item.id}`}>{item.name}</a>
+                      <Tags
+                        tags={[
+                          item.contributions,
+                          item.lastUpdate !== null && item.lastUpdate,
+                        ]}
+                      />
+                    </HorizontalList>
+                  ))}
+              </Card>
+            </Col>
+          </Row>
+          <Row className="pt-30">
+            <Col>
+              <Pagination
+                hasPrevPage={hasPrevPage}
+                hasNextPage={hasNextPage}
+                curPageNumber={params.page}
+                curPageUrl={`/topic/${params.id}/`}
+              />
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Container>
