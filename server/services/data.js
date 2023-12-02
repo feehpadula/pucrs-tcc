@@ -9,7 +9,8 @@ async function addData(newData) {
       (
         itemsId, 
         field01data, 
-        field02data) 
+        field02data
+      ) 
       VALUES 
       (
         ${newData.itemsId},
