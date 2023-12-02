@@ -1,4 +1,4 @@
-export const Plus = () => {
+export const PlusIcon = () => {
   return (
     <svg
       width="10"
@@ -12,7 +12,7 @@ export const Plus = () => {
   );
 };
 
-export const Share = () => {
+export const ShareIcon = () => {
   return (
     <svg
       width="10"
@@ -26,7 +26,7 @@ export const Share = () => {
   );
 };
 
-export const Report = () => {
+export const ReportIcon = () => {
   return (
     <svg
       width="10"
