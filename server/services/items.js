@@ -36,19 +36,19 @@ async function getItem(itemId) {
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(
     `SELECT 
-      id,
-      topicId,
-      name,
-      field01name,
-      field02name,
-      dataRelation, 
-      dataPresentation, 
-      dataOutliers,
+      items.id,
+      items.topicId,
+      items.name,
+      items.field01name,
+      items.field02name,
+      items.dataRelation, 
+      items.dataPresentation, 
+      items.dataOutliers,
       COUNT(data.id) AS contributions
     FROM items
     LEFT JOIN data ON items.id = data.itemsId
     WHERE items.id = ${itemId}
-    GROUP BY items.id, topicId, name, field01name, field02name, dataRelation, dataPresentation, dataOutliers`
+    GROUP BY items.id, items.topicId, items.name, items.field01name, items.field02name, items.dataRelation, items.dataPresentation, items.dataOutliers`
   );
   connection.release();
 
