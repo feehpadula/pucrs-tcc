@@ -78,7 +78,8 @@ function Topic() {
                       <Tags
                         tags={[
                           item.contributions,
-                          item.lastUpdate !== null && item.lastUpdate,
+                          item.lastUpdate !== null &&
+                            new Date(item.lastUpdate).toLocaleDateString("pt-br"),
                         ]}
                       />
                     </HorizontalList>
