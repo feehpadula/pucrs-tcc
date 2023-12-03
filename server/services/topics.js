@@ -65,7 +65,7 @@ async function getPageItems(topicId, page) {
       items.id,
       items.name,
       COUNT(data.id) AS contributions,
-      DATE_FORMAT(MAX(data.date), '%d/%m/%Y') AS lastUpdate
+      MAX(data.date) AS lastUpdate
     FROM items
     LEFT JOIN data ON items.id = data.itemsId
     WHERE topicId = ${topicId}
