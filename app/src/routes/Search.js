@@ -67,7 +67,7 @@ function Search() {
                 {mapItems && mapItems.length ? (
                   mapItems.map((item) => (
                     <HorizontalList key={item.id}>
-                      <a href={`/data/${params.id}/${item.id}`}>{item.name}</a>
+                      <a href={`/data/${item.topicId}/${item.id}`}>{item.name}</a>
                       <Tags
                         tags={[
                           item.contributions,
