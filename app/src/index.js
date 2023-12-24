@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import Routes from "./services/Routes";
 import TopMenu from "./components/TopMenu";
 import "./index.scss";
