@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { IsAuthenticated } from "../services/Auth";
 import MenuDropdown from "./MenuDropdown";
+import LoginDropdown from "./LoginDropdown";
 import "./Profile.scss";
 
 function Profile({ routes }) {
@@ -17,11 +19,12 @@ function Profile({ routes }) {
 
   return (
     <div className="top-menu-profile">
-      <span
-        onClick={profileMenuHandleClick}
-        style={{ pointerEvents: open && "none" }}
-      ></span>
-      {open && <MenuDropdown parentCallback={profileMenuHandleBlur} routes={routes} />}
+      <span onClick={profileMenuHandleClick} style={{ pointerEvents: open && "none" }} />
+      {IsAuthenticated()
+        ? open && <MenuDropdown parentCallback={profileMenuHandleBlur} routes={routes} />
+        : open && (
+            <LoginDropdown parentCallback={profileMenuHandleBlur} routes={routes} />
+          )}
     </div>
   );
 }
