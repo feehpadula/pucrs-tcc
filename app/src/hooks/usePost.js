@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import axios from "axios";
+import axios from "../services/Api";
 
 export const usePost = (params) => {
   const [data, setData] = useState(null);
@@ -7,13 +7,16 @@ export const usePost = (params) => {
   const [error, setError] = useState(null);
 
   const postData = useCallback(async (requestData) => {
+    setData(null);
+    setError(null);
+
     await axios(requestData)
       .then((res) => {
         setData(res);
         setIsLoading(false);
       })
       .catch((err) => {
-        setError(err.error);
+        setError(err.response.data.message);
       });
   }, []);
 
