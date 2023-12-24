@@ -174,17 +174,17 @@ function Data() {
             <Col sm={12} className="pt-30">
               {item && itemData && itemData[0].length ? (
                 <Card title={item && item[0].name}>
-                  <Chart itemData={itemData[0]} />
+                  <Chart item={item[0]} itemData={itemData[0]} />
                   <Row className="pt-30">
                     <Col sm={12} className="pb-15">
                       <h3>
-                        {item[0].name} ({itemData[0][itemData[0].length - 1].date}
-                        ): {itemData[0][itemData[0].length - 1].field01data}
+                        {item[0].name} ({itemData[0][itemData[0].length - 1].date})
+                        (Média): {itemData[0][itemData[0].length - 1].field01data}
                       </h3>
                     </Col>
                     <Col md={6}>
                       <VerticalList>
-                        <span>Contribuições: {item[0].contributions}</span>
+                        <span>Total de contribuições: {item[0].contributions}</span>
 
                         <span>
                           Contribuições ({itemData[0][itemData[0].length - 1].date}
@@ -194,7 +194,17 @@ function Data() {
                     </Col>
                     <Col md={6}>
                       <VerticalList>
-                        <span>Média total: 00000 </span>
+                        <span>
+                          Média total:{" "}
+                          {Math.round(
+                            itemData[0].reduce((accumulator, item) => {
+                              return item.field01data
+                                ? accumulator + item.field01data
+                                : accumulator + item.combined;
+                            }, 0) / itemData[0].length
+                          )}
+                          {item[0].dataPresentation !== 0 && "%"}
+                        </span>
                         {item[0].field02name !== null && (
                           <span>{item[0].field02name}:</span>
                         )}
