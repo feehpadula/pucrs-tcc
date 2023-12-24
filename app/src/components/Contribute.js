@@ -37,7 +37,7 @@ const Contribute = (props) => {
 
     await postData({
       method: "post",
-      url: "http://localhost:4000/data",
+      url: "/data",
       data: {
         itemsId: inputs.itemsId,
         field01name: parseInt(inputs.field01name),

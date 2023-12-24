@@ -44,7 +44,7 @@ const Report = (props) => {
 
     await postData({
       method: "post",
-      url: "http://localhost:4000/reports/",
+      url: "/reports",
       data: {
         itemsId: inputs.itemsId,
         reportType: parseInt(inputs.reportType),
