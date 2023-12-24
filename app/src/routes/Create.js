@@ -70,15 +70,16 @@ function Create() {
         ...singleFieldRelationalOptions,
         ...doubleFieldRelationalOptions,
       ]);
-      setDataPresentationOptions([
-        ...singleFieldPresentationOptions,
-        ...doubleFieldPresentationOptions,
-      ]);
+      setDataPresentationOptions(doubleFieldPresentationOptions);
       setField2HasName(true);
+
+      inputs.dataPresentation = "2";
     } else {
       setRelationalOptions(singleFieldRelationalOptions);
       setDataPresentationOptions(singleFieldPresentationOptions);
       setField2HasName(false);
+
+      inputs.dataPresentation = "0";
     }
 
     handleChange(e, true);
@@ -93,7 +94,7 @@ function Create() {
 
     await postData({
       method: "post",
-      url: "http://localhost:4000/items",
+      url: "/items",
       data: {
         topicId: inputs.topicId,
         name: inputs.name,
