@@ -1,7 +1,9 @@
 import { mapRoutes } from "../utils/Utils";
+import { ToastContainer } from "react-toastify";
 import TopMenuItem from "./TopMenuItem";
 import Search from "./Search";
 import Profile from "./Profile";
+import "react-toastify/dist/ReactToastify.css";
 import "./TopMenu.scss";
 
 function TopMenu({ routes }) {
@@ -17,6 +19,20 @@ function TopMenu({ routes }) {
         <Search placeholder="Pesquisar" />
       </div>
       <Profile routes={mapRoutes(routes, "Profile")} />
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        limit={3}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }
