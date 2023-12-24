@@ -13,7 +13,8 @@ async function addItem(item) {
         field02name, 
         dataRelation, 
         dataPresentation, 
-        dataOutliers) 
+        dataOutliers
+      ) 
       VALUES 
       (
         ${item.topicId}, 
