@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const pool = require("./db");
 const helper = require("../helper");
 const config = require("../config");
@@ -58,9 +57,7 @@ async function postUser(user) {
     if (helper.hashCheck(user.password, data[0].password)) {
       const id = data[0].id;
       const username = user.username;
-      const token = jwt.sign({ id, username }, process.env.JWT_TOKEN, {
-        expiresIn: "3h",
-      });
+      const token = helper.generateToken(id, username);
       return { token: token };
     }
   }

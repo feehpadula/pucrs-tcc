@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
 const user = require("../services/user");
+const helper = require("../helper");
 
 router.post("/register", async function (req, res, next) {
   try {
@@ -41,7 +41,7 @@ router.post("/recover", async function (req, res, next) {
 
 router.post("/token", async function (req, res, next) {
   try {
-    const verified = jwt.verify(req.body.JWT_TOKEN, process.env.JWT_TOKEN);
+    const verified = helper.validateToken(req.body.JWT_TOKEN);
 
     if (verified) {
       return res.status(200).json({ message: "success" });
