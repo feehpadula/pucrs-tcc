@@ -1,8 +1,9 @@
-export function mapRoutes(rawRoutes, position) {
+export function mapRoutes(rawRoutes, position, isAuthenticated = false) {
   let routes = [];
 
   rawRoutes.map((rawRoute) => {
     return (
+      (!rawRoute.requireLogin || (rawRoute.requireLogin && isAuthenticated)) &&
       rawRoute.position === position &&
       routes.push({ label: rawRoute.label, path: rawRoute.path })
     );
