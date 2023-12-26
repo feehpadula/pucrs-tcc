@@ -6,43 +6,56 @@ export const TOKEN_KEY = "JWT_TOKEN";
 
 export const IsAuthenticated = () => {
   /* eslint-disable */
-  const [cookies, setCookie, removeCookie] = useCookies([TOKEN_KEY]);
+  const [setCookie, removeCookie] = useCookies([TOKEN_KEY]);
   /* eslint-disable */
 
+  let token = GetToken();
   let { postData, data, isLoading, error } = usePost();
 
   useEffect(() => {
-    const handleSubmit = async () => {
+    const validateToken = async () => {
       await postData({
         method: "post",
         url: "/user/token",
         data: {
-          JWT_TOKEN: cookies.JWT_TOKEN,
+          JWT_TOKEN: token,
         },
       });
     };
 
-    if (cookies.JWT_TOKEN) {
-      handleSubmit();
+    if (token) {
+      validateToken();
     }
   }, []);
 
-  if (!cookies.JWT_TOKEN) {
+  if (!token) {
     return false;
   }
 
   if (error && error === "invalid token") {
-    removeCookie(TOKEN_KEY);
+    RemoveToken();
     return false;
   }
 
   return data && data.data.message === "success" && true;
 };
 
-export const getToken = () => localStorage.getItem(TOKEN_KEY);
-export const login = (token) => {
-  localStorage.setItem(TOKEN_KEY, token);
+export const GetToken = () => {
+  /* eslint-disable */
+  const [cookies] = useCookies([TOKEN_KEY]);
+  /* eslint-disable */
+
+  if (cookies.JWT_TOKEN && cookies.JWT_TOKEN !== "undefined") {
+    return cookies.JWT_TOKEN;
+  }
 };
-export const logout = () => {
-  localStorage.removeItem(TOKEN_KEY);
+
+export const RemoveToken = () => {
+  /* eslint-disable */
+  const [cookies, removeCookie] = useCookies([TOKEN_KEY]);
+  /* eslint-disable */
+
+  removeCookie(TOKEN_KEY);
+
+  window.location.href = "/";
 };
