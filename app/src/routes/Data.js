@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router";
 import { useGet } from "../hooks/useGet";
+import { IsAuthenticated } from "../services/Auth";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -136,21 +137,21 @@ function Data() {
                   <Select label="Local" id="country" name="country" data={countries} />
                 </div>
                 <div className="item-actions">
-                  <Button
-                    title="Contribuir"
-                    icon={<PlusIcon />}
-                    onClick={handleContribute}
-                  ></Button>
-                  <Button
-                    title={shareText}
-                    icon={<ShareIcon />}
-                    onClick={handleShare}
-                  ></Button>
-                  <Button
-                    title="Reportar"
-                    icon={<ReportIcon />}
-                    onClick={handleReport}
-                  ></Button>
+                  {IsAuthenticated() && (
+                    <>
+                      <Button
+                        title="Contribuir"
+                        icon={<PlusIcon />}
+                        onClick={handleContribute}
+                      />
+                      <Button
+                        title="Reportar"
+                        icon={<ReportIcon />}
+                        onClick={handleReport}
+                      />
+                    </>
+                  )}
+                  <Button title={shareText} icon={<ShareIcon />} onClick={handleShare} />
                 </div>
               </HorizontalList>
             </Col>
