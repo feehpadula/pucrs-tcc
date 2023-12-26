@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const items = require("../services/items");
+const helper = require("../helper");
 
 router.get("/", async function (req, res, next) {
   console.error(`Route not set`);
@@ -8,7 +9,9 @@ router.get("/", async function (req, res, next) {
 
 router.post("/", async function (req, res, next) {
   try {
-    res.json(await items.addItem(req.body));
+    if (helper.validateToken(req.headers["authorization"].replace(/^Bearer\s+/, ""))) {
+      res.json(await items.addItem(req.body));
+    }
   } catch (err) {
     console.error(`Error while adding item `, err.message);
     next(err);

@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(10);
 
@@ -14,6 +15,16 @@ function emptyOrRows(rows) {
 
 function setString(string) {
   return string !== null ? `'${string}'` : null;
+}
+
+function generateToken(id, username) {
+  return jwt.sign({ id, username }, process.env.JWT_TOKEN, {
+    expiresIn: "3h",
+  });
+}
+
+function validateToken(token) {
+  return jwt.verify(token, process.env.JWT_TOKEN);
 }
 
 function hashPassword(string) {
@@ -38,6 +49,8 @@ module.exports = {
   getOffset,
   emptyOrRows,
   setString,
+  generateToken,
+  validateToken,
   hashPassword,
   hashCheck,
   generateRecoveryCode,
