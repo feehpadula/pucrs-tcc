@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { GetToken } from "../services/Auth";
 import { usePost } from "../hooks/usePost";
+import { toast } from "react-toastify";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import HorizontalList from "../components/HorizontalList";
@@ -9,7 +10,7 @@ import Radio from "../components/Radio";
 import "./Report.scss";
 
 const Report = (props) => {
-  const navigate = useNavigate();
+  let token = GetToken();
 
   const item = props.item && props.item[0];
 
@@ -21,6 +22,17 @@ const Report = (props) => {
   /* eslint-disable */
   const { postData, data, isLoading, error } = usePost();
   /* eslint-disable */
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    } else {
+      if (data && data.status === 200 && data.data.insertId) {
+        toast.success("Reportado com sucesso");
+        props.onHandleCancelReport();
+      }
+    }
+  }, [data, error]);
 
   const reasons = [
     "Nome incorreto ou não reflete o resultado esperado",
@@ -45,13 +57,12 @@ const Report = (props) => {
     await postData({
       method: "post",
       url: "/reports",
+      headers: { Authorization: `Bearer ${token}` },
       data: {
         itemsId: inputs.itemsId,
         reportType: parseInt(inputs.reportType),
       },
     });
-
-    navigate(0);
   };
 
   return (

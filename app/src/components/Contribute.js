@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { GetToken } from "../services/Auth";
 import { usePost } from "../hooks/usePost";
+import { toast } from "react-toastify";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import HorizontalList from "../components/HorizontalList";
@@ -10,6 +12,8 @@ import "./Contribute.scss";
 
 const Contribute = (props) => {
   const navigate = useNavigate();
+
+  let token = GetToken();
 
   const item = props.item && props.item[0];
 
@@ -21,6 +25,12 @@ const Contribute = (props) => {
   /* eslint-disable */
   const { postData, data, isLoading, error } = usePost();
   /* eslint-disable */
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -38,6 +48,7 @@ const Contribute = (props) => {
     await postData({
       method: "post",
       url: "/data",
+      headers: { Authorization: `Bearer ${token}` },
       data: {
         itemsId: inputs.itemsId,
         field01name: parseInt(inputs.field01name),

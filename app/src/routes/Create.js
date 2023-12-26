@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IsAuthenticated, GetToken } from "../services/Auth";
 import { useGet } from "../hooks/useGet";
 import { usePost } from "../hooks/usePost";
+import { toast } from "react-toastify";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -14,9 +16,27 @@ import "./Create.scss";
 
 function Create() {
   const navigate = useNavigate();
+  let isAuthenticated = IsAuthenticated();
+  let token = GetToken();
+
+  useEffect(() => {
+    isAuthenticated === false && navigate("/");
+  });
+
   /* eslint-disable */
   const { postData, data, isLoading, error } = usePost();
   /* eslint-disable */
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    } else {
+      if (data && data.status === 200 && data.data.insertId) {
+        navigate(`/data/${inputs.topicId}/${data.data.insertId}`);
+      }
+    }
+  }, [data, error]);
+
   const [field2HasName, setField2HasName] = useState(false);
   const [inputs, setInputs] = useState({});
 
@@ -95,6 +115,7 @@ function Create() {
     await postData({
       method: "post",
       url: "/items",
+      headers: { Authorization: `Bearer ${token}` },
       data: {
         topicId: inputs.topicId,
         name: inputs.name,
@@ -120,8 +141,6 @@ function Create() {
 
   topics &&
     topics.map((topic) => topicOptions.push({ value: topic.id, label: topic.name }));
-
-  console.log(inputs);
 
   return (
     <Container>
