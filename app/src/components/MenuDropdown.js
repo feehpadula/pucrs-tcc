@@ -13,9 +13,14 @@ const MenuDropdown = ({ parentCallback, routes }) => {
   }
 
   return (
-    <ul ref={ref} tabIndex="0" className={style.dropdown} onBlur={profileMenuHandleBlur}>
+    <ul
+      ref={ref}
+      tabIndex="0"
+      className={style.menuDropdown}
+      onBlur={profileMenuHandleBlur}
+    >
       {routes.map((route, index) => (
-        <li key={index} className="menu-item">
+        <li key={index}>
           <a href={route.path}>{route.label}</a>
         </li>
       ))}
