@@ -20,7 +20,7 @@ function Profile({ routes }) {
   return (
     <div className="top-menu-profile">
       <span onClick={profileMenuHandleClick} style={{ pointerEvents: open && "none" }} />
-      {IsAuthenticated()
+      {IsAuthenticated() !== false
         ? open && <MenuDropdown parentCallback={profileMenuHandleBlur} routes={routes} />
         : open && (
             <LoginDropdown parentCallback={profileMenuHandleBlur} routes={routes} />
