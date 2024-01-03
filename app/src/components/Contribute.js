@@ -12,8 +12,7 @@ import "./Contribute.scss";
 
 const Contribute = (props) => {
   const navigate = useNavigate();
-
-  let token = GetToken();
+  const token = GetToken();
 
   const item = props.item && props.item[0];
 

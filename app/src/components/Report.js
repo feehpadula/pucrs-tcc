@@ -10,7 +10,7 @@ import Radio from "../components/Radio";
 import "./Report.scss";
 
 const Report = (props) => {
-  let token = GetToken();
+  const token = GetToken();
 
   const item = props.item && props.item[0];
 

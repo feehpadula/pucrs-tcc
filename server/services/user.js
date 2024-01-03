@@ -44,7 +44,7 @@ async function addUser(user) {
 async function postUser(user) {
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(
-    `SELECT id, username, password
+    `SELECT id, username, password, rights
     FROM users
     WHERE username = ${helper.setString(user.username)}
     LIMIT 1`
@@ -57,7 +57,8 @@ async function postUser(user) {
     if (helper.hashCheck(user.password, data[0].password)) {
       const id = data[0].id;
       const username = user.username;
-      const token = helper.generateToken(id, username);
+      const rights = data[0].rights;
+      const token = helper.generateToken(id, username, rights);
       return { token: token };
     }
   }
@@ -66,7 +67,6 @@ async function postUser(user) {
 }
 
 async function postRecover(user) {
-  console.log(user);
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(
     `SELECT username, recoveryCode
