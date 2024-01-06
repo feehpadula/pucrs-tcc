@@ -5,9 +5,15 @@ name: CI/CD
 
 on:
   push:
-    branches: [ "main", "stage", "develop" ]
+    branches: 
+      - main
+      - stage
+      - develop
   pull_request:
-    branches: [ "main", "stage", "develop" ]
+    branches:
+      - main
+      - stage
+      - develop
 
 jobs:
   build:
