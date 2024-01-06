@@ -7,9 +7,9 @@ import Card from "../components/Card";
 import HorizontalList from "../components/HorizontalList";
 import Tags from "../components/Tags";
 import Pagination from "../components/Pagination";
-import "./Topic.scss";
+import "./Search.scss";
 
-function Topic() {
+function Search() {
   let [hasPrevPage, hasNextPage] = [false, false];
 
   /* eslint-disable */
@@ -32,7 +32,7 @@ function Topic() {
     error: itemsError,
   } = useGet({
     method: "get",
-    url: `/topics/${params.id}/${params.page ? params.page : 0}`,
+    url: `/items/search/${params.name}/${params.page ? params.page : 0}`,
   });
   /* eslint-disable */
 
@@ -63,18 +63,11 @@ function Topic() {
         <Col xxl={8} xl={8} className="pt-lg-30">
           <Row>
             <Col>
-              <Card
-                title={
-                  topics &&
-                  topics
-                    .filter((topic) => parseInt(topic.id) === parseInt(params.id))
-                    .map((topic) => topic.name)
-                }
-              >
-                {mapItems &&
+              <Card title={`Pesquisa: ${params.name}`}>
+                {mapItems && mapItems.length ? (
                   mapItems.map((item) => (
                     <HorizontalList key={item.id}>
-                      <a href={`/data/${params.id}/${item.id}`}>{item.name}</a>
+                      <a href={`/data/${item.topicId}/${item.id}`}>{item.name}</a>
                       <Tags
                         tags={[
                           item.contributions,
@@ -83,7 +76,10 @@ function Topic() {
                         ]}
                       />
                     </HorizontalList>
-                  ))}
+                  ))
+                ) : (
+                  <span>Nenhum resultado encontrado</span>
+                )}
               </Card>
             </Col>
           </Row>
@@ -93,7 +89,7 @@ function Topic() {
                 hasPrevPage={hasPrevPage}
                 hasNextPage={hasNextPage}
                 curPageNumber={params.page}
-                curPageUrl={`/topic/${params.id}/`}
+                curPageUrl={`/search/${params.name}/`}
               />
             </Col>
           </Row>
@@ -103,4 +99,4 @@ function Topic() {
   );
 }
 
-export default Topic;
+export default Search;

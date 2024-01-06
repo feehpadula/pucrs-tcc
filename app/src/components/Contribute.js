@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { GetToken } from "../services/Auth";
 import { usePost } from "../hooks/usePost";
-import "./Contribute.scss";
+import { toast } from "react-toastify";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import HorizontalList from "../components/HorizontalList";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import "./Contribute.scss";
 
 const Contribute = (props) => {
   const navigate = useNavigate();
+
+  let token = GetToken();
 
   const item = props.item && props.item[0];
 
@@ -22,6 +26,12 @@ const Contribute = (props) => {
   const { postData, data, isLoading, error } = usePost();
   /* eslint-disable */
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -32,12 +42,13 @@ const Contribute = (props) => {
     props.onHandleCancelContribute();
   };
 
-  const handleSendClick = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     await postData({
       method: "post",
-      url: "http://localhost:4000/data",
+      url: "/data",
+      headers: { Authorization: `Bearer ${token}` },
       data: {
         itemsId: inputs.itemsId,
         field01name: parseInt(inputs.field01name),
@@ -72,7 +83,7 @@ const Contribute = (props) => {
   }, [inputs]);
 
   return (
-    <form onSubmit={handleSendClick} autoComplete="off">
+    <form onSubmit={handleSubmit} autoComplete="off">
       {item && (
         <Input
           id="data-field1"
@@ -105,7 +116,7 @@ const Contribute = (props) => {
         <Col sm={12}>
           <HorizontalList>
             <div></div>
-            <div className="create-actions">
+            <div className="actions">
               <Button type="button" title="Cancelar" onClick={handleCancelContribute} />
               <Button type="submit" title="Enviar" />
             </div>
