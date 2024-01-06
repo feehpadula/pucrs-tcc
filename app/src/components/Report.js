@@ -69,7 +69,7 @@ const Report = (props) => {
     <form onSubmit={handleSubmit} autoComplete="off">
       <Radio
         name="reportType"
-        label="Motivo:"
+        legend="Motivo:"
         required={true}
         data={reasons}
         onChange={handleChange}
