@@ -28,13 +28,14 @@ const LoginDropdown = ({ parentCallback, routes }) => {
       toast.error(error);
     } else {
       if (data && isLogin) {
-        let token = data.data.token;
+        const token = data.data.token;
 
         if (!token) {
           toast.error("Usuário e/ou senha incorretos");
         } else {
           setCookie("JWT_TOKEN", token, {
-            maxAge: 10800,
+            path: "/",
+            maxAge: 604800,
           });
 
           location.reload();

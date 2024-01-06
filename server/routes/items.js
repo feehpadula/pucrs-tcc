@@ -9,7 +9,11 @@ router.get("/", async function (req, res, next) {
 
 router.post("/", async function (req, res, next) {
   try {
-    if (helper.validateToken(req.headers["authorization"].replace(/^Bearer\s+/, ""))) {
+    const rights = helper.validateToken(
+      req.headers["authorization"].replace(/^Bearer\s+/, "")
+    );
+
+    if (rights !== false) {
       res.json(await items.addItem(req.body));
     }
   } catch (err) {

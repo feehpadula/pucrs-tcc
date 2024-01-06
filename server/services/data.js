@@ -25,9 +25,47 @@ async function addData(newData) {
   return data;
 }
 
+async function deleteData(deleteData) {
+  const connection = await pool.getConnection();
+  const [rows, fields] = await connection.query(
+    `DELETE FROM data
+    WHERE id IN (${deleteData.deleteId.join(", ")});`
+  );
+  connection.release();
+
+  const data = helper.emptyOrRows(rows);
+
+  return data;
+}
+
 async function getData(itemsId) {
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(`CALL getData(${itemsId})`);
+  connection.release();
+
+  const data = helper.emptyOrRows(rows);
+
+  return data;
+}
+
+async function getFullData(itemsId) {
+  const connection = await pool.getConnection();
+  const [rows, fields] = await connection.query(
+    `SELECT id, field01data, field02data, (field02data * 100) / field01data AS combined, date
+    FROM data
+    WHERE itemsId=${itemsId}
+    ORDER BY id DESC;`
+  );
+  connection.release();
+
+  const data = helper.emptyOrRows(rows);
+
+  return data;
+}
+
+async function getFences(itemsId) {
+  const connection = await pool.getConnection();
+  const [rows, fields] = await connection.query(`CALL getFences(${itemsId})`);
   connection.release();
 
   const data = helper.emptyOrRows(rows);
@@ -51,6 +89,9 @@ async function getCountData(itemsId) {
 
 module.exports = {
   addData,
+  deleteData,
   getData,
+  getFullData,
+  getFences,
   getCountData,
 };

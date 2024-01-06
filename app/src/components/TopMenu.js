@@ -15,11 +15,11 @@ function TopMenu({ routes }) {
           <img className="logo" alt="Logotipo What are the odds?" src="/logo@32.png" />
         </a>
       </div>
-      <TopMenuItem routes={mapRoutes(routes, "TopMenu", IsAuthenticated())} />
+      <TopMenuItem routes={mapRoutes(routes, "TopMenu", IsAuthenticated() !== false)} />
       <div className="top-menu-search">
         <Search placeholder="Pesquisar" />
       </div>
-      <Profile routes={mapRoutes(routes, "Profile", IsAuthenticated())} />
+      <Profile routes={mapRoutes(routes, "Profile", IsAuthenticated() !== false)} />
 
       <ToastContainer
         position="top-center"

@@ -16,8 +16,8 @@ import "./Create.scss";
 
 function Create() {
   const navigate = useNavigate();
-  let isAuthenticated = IsAuthenticated();
-  let token = GetToken();
+  const isAuthenticated = IsAuthenticated();
+  const token = GetToken();
 
   useEffect(() => {
     isAuthenticated === false && navigate("/");
