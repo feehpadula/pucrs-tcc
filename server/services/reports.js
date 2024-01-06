@@ -2,8 +2,7 @@ const pool = require("./db");
 const helper = require("../helper");
 const config = require("../config");
 
-async function addReport(newData) {
-  console.log(newData);
+async function addReport(report) {
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(
     `INSERT INTO reports
@@ -13,8 +12,8 @@ async function addReport(newData) {
       ) 
       VALUES 
       (
-        ${newData.itemsId},
-        ${newData.reportType}
+        ${report.itemsId},
+        ${report.reportType}
       )`
   );
   connection.release();

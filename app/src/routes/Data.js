@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import Card from "../components/Card";
 import Contribute from "../components/Contribute";
 import Report from "../components/Report";
+import Moderate from "../components/Moderate.tsx";
 import HorizontalList from "../components/HorizontalList";
 import VerticalList from "../components/VerticalList";
 import Button from "../components/Button";
@@ -19,27 +20,22 @@ import "./Data.scss";
 
 function Data() {
   const [showContribute, setShowContribute] = useState(false);
-  const [shareText, setShareText] = useState("Compartilhar");
   const [showReport, setShowReport] = useState(false);
+  const [showModerate, setShowModerate] = useState(false);
+  const [shareText, setShareText] = useState("Compartilhar");
+  const isAuthenticated = IsAuthenticated();
 
   const countries = [
     {
       value: "brasil",
       label: "Brasil",
     },
-    {
-      value: "canada",
-      label: "Canada",
-    },
-    {
-      value: "estadosunidos",
-      label: "Estados Unidos",
-    },
   ];
 
   const handleContribute = () => {
     setShowContribute(true);
     setShowReport(false);
+    setShowModerate(false);
   };
 
   const handleCancelContribute = () => {
@@ -55,10 +51,21 @@ function Data() {
   const handleReport = () => {
     setShowReport(true);
     setShowContribute(false);
+    setShowModerate(false);
   };
 
   const handleCancelReport = () => {
     setShowReport(false);
+  };
+
+  const handleModerate = () => {
+    setShowModerate(true);
+    setShowContribute(false);
+    setShowReport(false);
+  };
+
+  const handleCancelModerate = () => {
+    setShowModerate(false);
   };
 
   /* eslint-disable */
@@ -137,7 +144,7 @@ function Data() {
                   <Select label="Local" id="country" name="country" data={countries} />
                 </div>
                 <div className="item-actions">
-                  {IsAuthenticated() && (
+                  {isAuthenticated !== false && (
                     <>
                       <Button
                         title="Contribuir"
@@ -148,6 +155,15 @@ function Data() {
                         title="Reportar"
                         icon={<ReportIcon />}
                         onClick={handleReport}
+                      />
+                    </>
+                  )}
+                  {isAuthenticated >= 1 && (
+                    <>
+                      <Button
+                        title="Moderar"
+                        icon={<PlusIcon />}
+                        onClick={handleModerate}
                       />
                     </>
                   )}
@@ -169,6 +185,16 @@ function Data() {
               <Col sm={12} className="pt-30">
                 <Card title="Reportar">
                   <Report item={item && item} onHandleCancelReport={handleCancelReport} />
+                </Card>
+              </Col>
+            )}
+            {showModerate && (
+              <Col sm={12} className="pt-30">
+                <Card title="Moderar">
+                  <Moderate
+                    item={item && item}
+                    onHandleCancelModerate={handleCancelModerate}
+                  />
                 </Card>
               </Col>
             )}

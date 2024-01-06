@@ -9,7 +9,7 @@ export const IsAuthenticated = () => {
   const [setCookie, removeCookie] = useCookies([TOKEN_KEY]);
   /* eslint-disable */
 
-  let token = GetToken();
+  const token = GetToken();
   let { postData, data, isLoading, error } = usePost();
 
   useEffect(() => {
@@ -32,12 +32,12 @@ export const IsAuthenticated = () => {
     return false;
   }
 
-  if (error && error === "invalid token") {
+  if (error) {
     RemoveToken();
     return false;
   }
 
-  return data && data.data.message === "success" && true;
+  return data && data.data.message === "success" && data.data.rights;
 };
 
 export const GetToken = () => {

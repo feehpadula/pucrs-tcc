@@ -41,10 +41,10 @@ router.post("/recover", async function (req, res, next) {
 
 router.post("/token", async function (req, res, next) {
   try {
-    const verified = helper.validateToken(req.body.JWT_TOKEN);
+    const rights = helper.validateToken(req.body.JWT_TOKEN);
 
-    if (verified) {
-      return res.status(200).json({ message: "success" });
+    if (rights !== false) {
+      return res.status(200).json({ message: "success", rights: rights });
     } else {
       return res.status(401).json({ message: "error" });
     }

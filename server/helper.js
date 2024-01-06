@@ -17,14 +17,20 @@ function setString(string) {
   return string !== null ? `'${string}'` : null;
 }
 
-function generateToken(id, username) {
-  return jwt.sign({ id, username }, process.env.JWT_TOKEN, {
-    expiresIn: "3h",
+function generateToken(id, username, rights) {
+  return jwt.sign({ id, username, rights }, process.env.JWT_TOKEN, {
+    expiresIn: "7d",
   });
 }
 
 function validateToken(token) {
-  return jwt.verify(token, process.env.JWT_TOKEN);
+  let user = jwt.verify(token, process.env.JWT_TOKEN);
+
+  if (user) {
+    return user.rights;
+  } else {
+    return false;
+  }
 }
 
 function hashPassword(string) {
