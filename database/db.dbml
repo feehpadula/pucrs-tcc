@@ -1,0 +1,69 @@
+Table "data" {
+  "id" int [pk, not null, increment]
+  "itemsId" int [not null]
+  "field01data" int [not null]
+  "field02data" int [default: NULL]
+  "date" date [not null, default: `curdate()`]
+
+Indexes {
+  id [unique, name: "id_UNIQUE"]
+  itemsId [name: "itemsId_idx"]
+}
+}
+
+Table "items" {
+  "id" int [pk, not null, increment]
+  "topicId" int [not null]
+  "name" varchar(90) [not null]
+  "field01name" varchar(45) [not null]
+  "field02name" varchar(45) [default: NULL]
+  "dataRelation" tinyint [not null, default: "0"]
+  "dataPresentation" tinyint [not null, default: "0"]
+  "dataOutliers" tinyint [not null, default: "0"]
+  "creationDate" date [not null, default: `curdate()`]
+
+Indexes {
+  id [unique, name: "id_UNIQUE"]
+  name [unique, name: "name_UNIQUE"]
+  topicId [name: "topic_idx"]
+}
+}
+
+Table "reports" {
+  "id" int [pk, not null, increment]
+  "itemsId" int [not null]
+  "reportType" tinyint [not null]
+  "status" tinyint [not null, default: "0"]
+
+Indexes {
+  id [unique, name: "id_UNIQUE"]
+}
+}
+
+Table "topics" {
+  "id" int [pk, not null, increment]
+  "name" varchar(30) [not null]
+
+Indexes {
+  id [unique, name: "id_UNIQUE"]
+  name [unique, name: "name_UNIQUE"]
+}
+}
+
+Table "users" {
+  "id" int [pk, not null, increment]
+  "username" varchar(45) [not null]
+  "password" varchar(72) [not null]
+  "recoveryCode" varchar(72) [not null]
+  "rights" tinyint [not null, default: "0"]
+  "creationDate" date [not null, default: `curdate()`]
+
+Indexes {
+  id [unique, name: "id_UNIQUE"]
+  username [unique, name: "username_UNIQUE"]
+}
+}
+
+Ref "itemsId":"items"."id" < "data"."itemsId"
+
+Ref "topic":"topics"."id" < "items"."topicId"
