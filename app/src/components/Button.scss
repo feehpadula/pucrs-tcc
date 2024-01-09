@@ -1,0 +1,25 @@
+@import "../assets/sass/variables.scss";
+
+button {
+  background-color: $color-black;
+  color: $color-gray;
+  font-weight: 700;
+  padding: 0 $spacing-15;
+  border-radius: $spacing-15;
+  border: 0;
+  height: $spacing-30;
+  cursor: pointer;
+
+  > svg {
+    padding-left: $spacing-10;
+    fill: $color-gray;
+  }
+
+  &:hover {
+    color: $color-gray-hover;
+
+    > svg {
+      fill: $color-gray-hover;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@import "../assets/sass/variables.scss";
+
+input.search {
+  background-color: $color-black;
+  color: $color-gray;
+  font-weight: 700;
+  padding: 0 $spacing-15;
+  border-radius: $spacing-15;
+  border: 0;
+  height: $spacing-30;
+  width: calc(100% - $spacing-30);
+  max-width: 300px;
+}

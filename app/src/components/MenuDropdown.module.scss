@@ -1,0 +1,35 @@
+@import "../assets/sass/variables.scss";
+@import "../assets/sass/animations.scss";
+
+.menuDropdown {
+  background-color: $color-black;
+  position: absolute;
+  transform: translateX(calc(-100% + 30px));
+  list-style-type: none;
+  border-radius: $spacing-15;
+  margin: $spacing-15 0;
+  padding: $spacing-15;
+  width: max-content;
+  animation-name: opacity;
+  animation-duration: 100ms;
+  opacity: 1;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-10;
+  z-index: 9999;
+
+  > li {
+    margin: 0;
+
+    a {
+      color: $color-gray;
+      text-decoration: none;
+      font-weight: 700;
+
+      &:hover {
+        color: $color-gray-hover;
+      }
+    }
+  }
+}

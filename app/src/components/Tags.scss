@@ -1,0 +1,17 @@
+@import "../assets/sass/variables.scss";
+
+.tags {
+  display: flex;
+  flex-direction: row;
+  gap: $spacing-5;
+
+  .tag {
+    background-color: $color-black;
+    color: $color-gray;
+    border-radius: $spacing-15;
+    font-size: $font-12;
+    font-weight: 700;
+    line-height: 19px;
+    padding: 0 $spacing-15;
+  }
+}

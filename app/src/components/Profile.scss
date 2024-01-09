@@ -1,0 +1,12 @@
+@import "../assets/sass/variables.scss";
+
+.top-menu-profile {
+  span {
+    display: block;
+    background-color: $color-black;
+    border-radius: $spacing-15;
+    width: $spacing-30;
+    height: $spacing-30;
+    cursor: pointer;
+  }
+}

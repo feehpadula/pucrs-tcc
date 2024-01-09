@@ -1,0 +1,7 @@
+@import "../assets/sass/variables.scss";
+
+.horizontal-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

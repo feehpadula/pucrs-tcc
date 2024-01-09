@@ -1,0 +1,6 @@
+@import "../assets/sass/spacing.scss";
+
+.item-actions > *,
+.actions > * {
+  margin-left: $spacing-15;
+}
