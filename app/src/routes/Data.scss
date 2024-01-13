@@ -1,5 +1,15 @@
 @import "../assets/sass/spacing.scss";
 
+@media (max-width: 767px) {
+  .item-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-15;
+    margin-top: $spacing-15;
+  }
+}
+
 .item-actions > *,
 .actions > * {
   margin-left: $spacing-15;
