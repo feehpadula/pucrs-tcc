@@ -91,3 +91,21 @@
     }
   }
 }
+
+@media (max-width: 767px) {
+  .login-dropdown {
+    background-color: $color-black;
+    position: absolute;
+    width: calc(100% - 52px);
+    margin-left: 10px;
+    left: 0;
+    transform: translateX(0);
+    z-index: 9999;
+    > form,
+    div.registered {
+      > input {
+        width: auto;
+      }
+    }
+  }
+}
