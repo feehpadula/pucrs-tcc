@@ -292,7 +292,7 @@ const Moderate = (props) => {
         </Row>
 
         <Row>
-          <Col sm={12}>
+          <Col sm={12} className="pt-lg-30">
             <HorizontalList>
               <div></div>
               <div className="actions">

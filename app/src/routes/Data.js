@@ -139,7 +139,7 @@ function Data() {
         <Col xxl={8} xl={8} className="pt-lg-30">
           <Row>
             <Col sm={12}>
-              <HorizontalList>
+              <HorizontalList class="md-vertical-list">
                 <div className="item-data-view">
                   <Select label="Local" id="country" name="country" data={countries} />
                 </div>
