@@ -1,7 +1,14 @@
 @import "../assets/sass/variables.scss";
 
+@media (max-width: 767px) {
+  .horizontal-list.md-vertical-list {
+    flex-direction: column;
+  }
+}
+
 .horizontal-list {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
